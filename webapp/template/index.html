@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+    <title>Vehicle Information</title>
+</head>
+
+<body>
+    <header>
+        <b>
+            <h1>Get Vehicle Owner Information by Vehicle (License Plate) Image</h1>
+        </b>
+    </header>
+
+    <main>
+        <div id="content">
+            <ul>
+                <h2>Instructions</h2>
+                <p>-----------------------------------------------------</p>
+                <li>Upload your image on <b>Choose Files</b> box from your system</li>
+                <li>Click <b>Upload</b> button</li>
+                <li>Click <b>Get Information</b> for image information</li>
+            </ul>
+            <div id="cont">
+                <form class="myform" action="/upload" method="POST" enctype="multipart/form-data">
+                    <input type="file" id='fs' name="user_img" accept="" image/* multiple> <br>
+                    <button class="button" style="vertical-align:middle"><span>Upload</span></button> <br>
+                </form>
+                <button id="info_btn" style="vertical-align:middle" class="button" onclick="myfun()"> <span>Get Information</span></button> <br>
+            </div>
+        </div>
+        <div id="info">
+            
+        </div>
+    </main>
+    <footer>
+        <p>Copyright &copy; </p>
+    </footer>
+</body>
+	
+<script>
+    function myfun() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/info", false);
+        xhr.send();
+        var res = xhr.responseText;
+        var arr = res.split("+");
+        p = document.createElement("h2");
+        p.innerHTML="Vehicle Information"
+        document.getElementById('info').appendChild(p);
+        for (let i = 0; i <= arr.length; i++) {
+            para = document.createElement("h3")
+            para.style.opacity=1;
+            para.innerHTML = arr[i];
+            document.getElementById('info').appendChild(para);
+        }
+    }
+</script>
+</html>
